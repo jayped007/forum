@@ -4,20 +4,34 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
-                sh 'composer install'
-                // npm install et al to compile assets
+                echo 'Building..(on staging)'
+                sh 'ssh -o StrictHostkeyChecking=no forum_staging@192.168.0.22 "cd forum; \
+                  git pull origin main; \
+                  composer install --optimize-autoloader --no-dev; \
+                  php artisan migrate; \
+                  php artisan cache:clear; \
+                  php artisan config:cache"'
+                  // NOTE: could add 'npm install' et al to compile assets
             }
         }
-        stage('Test') {
+        stage('Test..(on staging)') {
             steps {
                 echo 'Testing..'
-                sh 'vendor/bin/phpunit'
+                sh 'ssh -o StrictHostkeyChecking=no forum_staging@192.168.0.22 "cd forum; \
+                  php artisan cache:clear; \
+                  php artisan config:cache; \
+                  vendor/bin/phpunit"'
             }
         }
-        stage('Deploy') {
+        stage('Deploy..(to PROD)') {
             steps {
                 echo 'Deploying....'
+                sh 'ssh -o StrictHostkeyChecking=no forum_deploy@192.168.0.19 "cd forum; \
+                  git pull origin main; \
+                  composer install --optimize-autoloader --no-dev; \
+                  php artisan migrate; \
+                  php artisan cache:clear; \
+                  php artisan config:cache"'
             }
         }
     }
