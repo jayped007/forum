@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..(on staging)'
+                echo 'Building..(STAGING server)'
                 sh 'ssh -o StrictHostkeyChecking=no forum_staging@192.168.0.22 \
                  "cd forum_cicd; \
                   git pull origin main; \
@@ -15,9 +15,9 @@ pipeline {
                   // NOTE: could add 'npm install' et al to compile assets
             }
         }
-        stage('Test..(on staging)') {
+        stage('Test') {
             steps {
-                echo 'Testing..'
+                echo 'Testing..(STAGING server)'
                 sh 'ssh -o StrictHostkeyChecking=no forum_staging@192.168.0.22 \
                  "cd forum_cicd; \
                   php artisan cache:clear; \
@@ -25,7 +25,7 @@ pipeline {
                   vendor/bin/phpunit"'
             }
         }
-        stage('Deploy..(to PROD)') {
+        stage('Deploy') {
             steps {
                 echo 'Deploying....'
                 sh 'ssh -o StrictHostkeyChecking=no forum_deploy@192.168.0.19 \
