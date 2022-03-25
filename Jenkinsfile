@@ -8,7 +8,7 @@ pipeline {
                 sh 'ssh -o StrictHostkeyChecking=no forum_staging@192.168.0.22 \
                  "cd forum_cicd; \
                   git pull origin main; \
-                  composer install --optimize-autoloader --no-dev; \
+                  composer install --optimize-autoloader; \
                   php artisan migrate; \
                   php artisan cache:clear; \
                   php artisan config:cache"'
