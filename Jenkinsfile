@@ -26,6 +26,10 @@ pipeline {
             }
         }
         stage('Deploy') {
+            input {
+                message "Approve deployment?"
+                ok "Approve deployment to PRODUCTION"
+            }
             steps {
                 echo 'Deploying....'
                 sh 'ssh -o StrictHostkeyChecking=no forum_deploy@192.168.0.19 \
