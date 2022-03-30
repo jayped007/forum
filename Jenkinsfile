@@ -2,6 +2,11 @@ pipeline {
     agent any
 
     stages {
+        stage('JGP') {
+            steps {
+                echo 'Adding temporary stage, to test webhook and GITHUB push interaction'
+            }
+        }
         stage('Build') {
             steps {
                 echo 'Building..(STAGING server)'
