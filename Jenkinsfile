@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('JGP') {
             steps {
-                echo 'Temporary stage, test #4, testing GITHUB push triggering Jenkins build'
+                echo 'Temporary stage, test #5, testing GITHUB push triggering Jenkins build'
             }
         }
         stage('Build') {
