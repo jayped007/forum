@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('JGP') {
             steps {
-                echo 'Adding temporary stage, to test webhook and GITHUB push interaction'
+                echo 'Temporary stage, testing GITHUB push triggering Jenkins build'
             }
         }
         stage('Build') {
