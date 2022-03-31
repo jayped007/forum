@@ -11,7 +11,10 @@ pipeline {
             steps {
                 echo 'Building..(STAGING server)'
                 sh 'ssh -o StrictHostkeyChecking=no forum_staging@jenkins.jgp \
-                 "cd forum_cicd; \
+                 "echo 'we are here'; \
+                  pwd; \
+                  cd forum_cicd; \
+                  pwd;
                   git pull origin main; \
                   composer install --optimize-autoloader; \
                   php artisan migrate; \
