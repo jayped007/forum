@@ -4,13 +4,13 @@ pipeline {
     stages {
         stage('JGP') {
             steps {
-                echo 'Temporary stage, test #9, testing GITHUB push triggering Jenkins build'
+                echo 'Temporary stage, test #10, testing GITHUB push triggering Jenkins build'
             }
         }
         stage('Build') {
             steps {
                 echo 'Building..(STAGING server)'
-                sh 'ssh -o StrictHostkeyChecking=no forum_staging@192.168.0.22 \
+                sh 'ssh -o StrictHostkeyChecking=no forum_staging@jenkins.jgp \
                  "cd forum_cicd; \
                   git pull origin main; \
                   composer install --optimize-autoloader; \
@@ -23,7 +23,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing..(STAGING server)'
-                sh 'ssh -o StrictHostkeyChecking=no forum_staging@192.168.0.22 \
+                sh 'ssh -o StrictHostkeyChecking=no forum_staging@jenkins.jgp \
                  "cd forum_cicd; \
                   php artisan cache:clear; \
                   php artisan config:cache; \
@@ -37,7 +37,7 @@ pipeline {
             }
             steps {
                 echo 'Deploying....'
-                sh 'ssh -o StrictHostkeyChecking=no forum_deploy@192.168.0.19 \
+                sh 'ssh -o StrictHostkeyChecking=no forum_deploy@prod.jgp \
                  "cd forum_cicd; \
                   git pull origin main; \
                   composer install --optimize-autoloader --no-dev; \
