@@ -14,6 +14,7 @@ pipeline {
                  "echo here; \
                   pwd; \
                   cd forum_cicd; \
+                  echo here2; \
                   pwd;
                   git pull origin main; \
                   composer install --optimize-autoloader; \
