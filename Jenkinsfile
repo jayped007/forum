@@ -11,12 +11,7 @@ pipeline {
             steps {
                 echo 'Building..(STAGING server)'
                 sh 'ssh -o StrictHostkeyChecking=no forum_staging@jenkins.jgp \
-                 "cd forum_cicd; \
-                  #git pull origin main; \
-                  #composer install --optimize-autoloader; \
-                  #php artisan migrate; \
-                  #php artisan cache:clear; \
-                  #php artisan config:cache"'
+                 "ls /dev"'
                 sh 'ssh -o StrictHostkeyChecking=no forum_staging@jenkins.jgp \
                  "cd forum_cicd; \
                   git pull origin main; \
