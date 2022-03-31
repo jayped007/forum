@@ -2,15 +2,9 @@ pipeline {
     agent any
 
     stages {
-        stage('JGP') {
-            steps {
-                echo 'Temporary stage, test #10, testing GITHUB push triggering Jenkins build'
-            }
-        }
         stage('Build') {
             steps {
                 echo 'Building..(STAGING server)'
-                sh 'ls -l ~/.ssh'
                 sh 'ssh -o StrictHostkeyChecking=no forum_staging@jenkins.jgp \
                  "cd forum_cicd; \
                   git pull origin main; \
