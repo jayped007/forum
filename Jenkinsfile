@@ -10,7 +10,6 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..(STAGING server)'
-                sh 'whoami'
                 sh 'ls -l ~/.ssh'
                 sh 'ssh -o StrictHostkeyChecking=no forum_staging@jenkins.jgp \
                  "cd forum_cicd; \
