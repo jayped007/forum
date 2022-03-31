@@ -11,7 +11,7 @@ pipeline {
             steps {
                 echo 'Building..(STAGING server)'
                 sh 'ssh -o StrictHostkeyChecking=no forum_staging@jenkins.jgp \
-                 "echo 'we are here'; \
+                 "echo here; \
                   pwd; \
                   cd forum_cicd; \
                   pwd;
