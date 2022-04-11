@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'Building..(STAGING server)'
                 sh 'ssh -o StrictHostkeyChecking=no forum_staging@jenkins.jgp \
-                 "cd forum_cicd; \
+                 "cd forum; \
                   git pull origin main; \
                   composer install --optimize-autoloader; \
                   php artisan migrate; \
@@ -19,7 +19,7 @@ pipeline {
             steps {
                 echo 'Testing..(STAGING server)'
                 sh 'ssh -o StrictHostkeyChecking=no forum_staging@jenkins.jgp \
-                 "cd forum_cicd; \
+                 "cd forum; \
                   php artisan cache:clear; \
                   php artisan config:cache; \
                   vendor/bin/phpunit"'
@@ -33,7 +33,7 @@ pipeline {
             steps {
                 echo 'Deploying....'
                 sh 'ssh -o StrictHostkeyChecking=no forum_deploy@prod.jgp \
-                 "cd forum_cicd; \
+                 "cd forum; \
                   git pull origin main; \
                   composer install --optimize-autoloader --no-dev; \
                   php artisan migrate; \
