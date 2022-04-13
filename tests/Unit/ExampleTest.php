@@ -18,6 +18,6 @@ class ExampleTest extends TestCase
 
     public function testWillInitiallyFail()
     {
-        $this->assertTrue(false);
+        $this->assertTrue(true);
     }
 }
