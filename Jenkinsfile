@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..(STAGING server)'
-                sh 'ssh -o StrictHostkeyChecking=no forum_staging@jenkins.jgp \
+                sh 'ssh -o StrictHostkeyChecking=no jenkins_staging@jenkins.jgp \
                  "cd forum; \
                   git pull origin main; \
                   composer install --optimize-autoloader; \
@@ -18,7 +18,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing..(STAGING server)'
-                sh 'ssh -o StrictHostkeyChecking=no forum_staging@jenkins.jgp \
+                sh 'ssh -o StrictHostkeyChecking=no jenkins_staging@jenkins.jgp \
                  "cd forum; \
                   php artisan cache:clear; \
                   php artisan config:cache; \
@@ -32,7 +32,7 @@ pipeline {
             }
             steps {
                 echo 'Deploying....'
-                sh 'ssh -o StrictHostkeyChecking=no forum_deploy@prod.jgp \
+                sh 'ssh -o StrictHostkeyChecking=no jenkins_deploy@prod.jgp \
                  "cd forum; \
                   git pull origin main; \
                   composer install --optimize-autoloader --no-dev; \
