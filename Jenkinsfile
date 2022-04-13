@@ -31,7 +31,7 @@ pipeline {
                 ok "Approve deployment to PRODUCTION"
             }
             steps {
-                echo 'Deploying....'
+                echo 'Deploying....(PROD server)'
                 sh 'ssh -o StrictHostkeyChecking=no jenkins_deploy@prod.jgp \
                  "cd forum; \
                   git pull origin main; \
