@@ -5,13 +5,13 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..(STAGING server)'
-                sh 'ssh -o StrictHostkeyChecking=no jenkins_staging@jenkins.jgp "bash -x cicd/build_stage.bash"'
+                sh 'ssh -o StrictHostkeyChecking=no jenkins_staging@jenkins.jgp "bash -x forum/cicd/build_stage.bash"'
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing..(STAGING server)'
-                sh 'ssh -o StrictHostkeyChecking=no jenkins_staging@jenkins.jgp "bash -x cicd/test_stage.bash"'
+                sh 'ssh -o StrictHostkeyChecking=no jenkins_staging@jenkins.jgp "bash -x forum/cicd/test_stage.bash"'
             }
         }
         stage('Deploy') {
@@ -21,7 +21,7 @@ pipeline {
             }
             steps {
                 echo 'Deploying....(PROD server)'
-                sh 'ssh -o StrictHostkeyChecking=no jenkins_deploy@prod.jgp "bash -x cicd/deploy_stage.bash"'
+                sh 'ssh -o StrictHostkeyChecking=no jenkins_deploy@prod.jgp "bash -x forum/cicd/deploy_stage.bash"'
             }
         }
     }
