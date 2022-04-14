@@ -5,24 +5,13 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..(STAGING server)'
-                sh 'ssh -o StrictHostkeyChecking=no jenkins_staging@jenkins.jgp \
-                 "cd forum; \
-                  git pull origin main; \
-                  composer install --optimize-autoloader; \
-                  php artisan migrate; \
-                  php artisan cache:clear; \
-                  php artisan config:cache"'
-                  // NOTE: could add 'npm install' et al to compile assets
+                sh 'ssh -o StrictHostkeyChecking=no jenkins_staging@jenkins.jgp "bash -x cicd/build_stage.bash"'
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing..(STAGING server)'
-                sh 'ssh -o StrictHostkeyChecking=no jenkins_staging@jenkins.jgp \
-                 "cd forum; \
-                  php artisan cache:clear; \
-                  php artisan config:cache; \
-                  vendor/bin/phpunit"'
+                sh 'ssh -o StrictHostkeyChecking=no jenkins_staging@jenkins.jgp "bash -x cicd/test_stage.bash"'
             }
         }
         stage('Deploy') {
@@ -32,13 +21,7 @@ pipeline {
             }
             steps {
                 echo 'Deploying....(PROD server)'
-                sh 'ssh -o StrictHostkeyChecking=no jenkins_deploy@prod.jgp \
-                 "cd forum; \
-                  git pull origin main; \
-                  composer install --optimize-autoloader --no-dev; \
-                  php artisan migrate; \
-                  php artisan cache:clear; \
-                  php artisan config:cache"'
+                sh 'ssh -o StrictHostkeyChecking=no jenkins_deploy@prod.jgp "bash -x cicd/deploy_stage.bash"'
             }
         }
     }
